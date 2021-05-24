@@ -1,5 +1,6 @@
 
 import { loadStripe } from '@stripe/stripe-js'
+import axios from 'axios';
 import "bootswatch/dist/lux/bootstrap.min.css";
 import './App.css';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -20,7 +21,13 @@ const CheckoutForm = () => {
     })
 
     if (!error){
-       console.log(paymentMethod)
+       const { id } = paymentMethod;
+
+       const {data} = await axios.post('http://localhost:3001/api/checkout',{
+       id,
+       amount: 8890})
+
+       console.log(data)
     }
   }
 
